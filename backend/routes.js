@@ -53,4 +53,46 @@ router.post('/', (req,res) => {
   })
 })
 
+//PUT API
+router.put('/:id', (req,res) => {
+  const id = req.params.id;
+  if(ObjectId.isValid(id))
+  {
+    let emp ={
+      name: req.body.name,
+      position : req.body.position,
+      dept : req.body.dept
+    }
+
+    Employee.findByIdAndUpdate(req.params.id, {$set:emp}, {new:true}, (err,doc) => {
+      if(err){
+        console.log('Error in UPDATE Employee by ID '+err);
+      }else{
+        res.send(doc);
+      }
+    })
+  }
+  else{
+    return res.status(400).send(`No record found with ID ${req.params.id}`)
+  }
+})
+
+//DELETE SINGLE EMPLOYEE
+router.delete('/:id', (req,res) => {
+  const id = req.params.id;
+  if(ObjectId.isValid(id))
+  {
+    Employee.findByIdAndRemove(req.params.id, (err,doc) => {
+      if(err){
+        console.log('Error in DELETE Employee by ID '+err);
+      }else{
+        res.send(doc);
+      }
+    })
+  }
+  else{
+    return res.status(400).send(`No record found with ID ${req.params.id}`)
+  }
+})
+
 module.exports = router;
