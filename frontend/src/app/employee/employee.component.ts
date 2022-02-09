@@ -15,7 +15,7 @@ export class EmployeeComponent implements OnInit {
   editMode:boolean = false;
   employees: Employee[];
 
-  constructor(private fb: FormBuilder, private empService: EmployeeService) { };
+  constructor(private fb: FormBuilder, private empService: EmployeeService) { }
 
   ngOnInit(): void {
     this.getEmployees();
